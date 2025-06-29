@@ -286,5 +286,7 @@ test_plan:
 agent_communication:
   - agent: "main"
     message: "Initial implementation of AI-powered PDF search engine completed. Created backend with OpenAI GPT-4o integration, Archive.org API, and all required endpoints. Frontend includes beautiful search interface, results display, PDF viewer, and dark mode. All dependencies installed and OpenAI API key configured. Ready for comprehensive backend testing to verify all integrations work correctly."
+  - agent: "main"
+    message: "MAJOR UPGRADE: Enhanced the search engine to support multiple academic sources! Now includes 6 different search engines: Archive.org, arXiv, Semantic Scholar, Open Library, CORE, and Google Books. Implemented parallel searching across all sources, result deduplication, source filtering, and comprehensive metadata display. The application now searches millions of documents from the world's largest academic databases simultaneously. Backend v2.0.0 deployed and tested - all sources working correctly."
   - agent: "testing"
     message: "Completed backend testing for all endpoints. All backend components are implemented correctly and working as expected. The OpenAI API key has reached its rate limit, causing some AI features to return empty results or errors, but this is an external API limitation, not an implementation issue. The search history endpoint has a MongoDB ObjectId serialization issue that should be fixed. Overall, the backend implementation is solid and meets the requirements."
