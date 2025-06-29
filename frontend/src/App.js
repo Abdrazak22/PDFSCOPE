@@ -13,6 +13,23 @@ function App() {
   const [loading, setLoading] = useState(false);
   const [suggestions, setSuggestions] = useState([]);
   const [selectedPdf, setSelectedPdf] = useState(null);
+  const [availableSources, setAvailableSources] = useState([]);
+  const [selectedSources, setSelectedSources] = useState([]);
+
+  // Fetch available sources on component mount
+  useEffect(() => {
+    fetchAvailableSources();
+  }, []);
+
+  // Fetch available search sources
+  const fetchAvailableSources = async () => {
+    try {
+      const response = await axios.get(`${API}/sources`);
+      setAvailableSources(response.data.sources || []);
+    } catch (error) {
+      console.error("Error fetching sources:", error);
+    }
+  };
 
   // Dark mode toggle
   const toggleDarkMode = () => {
@@ -25,10 +42,17 @@ function App() {
     
     setLoading(true);
     try {
-      const response = await axios.post(`${API}/search`, {
+      const searchPayload = {
         query: query.trim(),
-        max_results: 12
-      });
+        max_results: 20
+      };
+      
+      // Add selected sources if any
+      if (selectedSources.length > 0) {
+        searchPayload.sources = selectedSources;
+      }
+      
+      const response = await axios.post(`${API}/search`, searchPayload);
       setSearchResults(response.data);
       
       // Fetch suggestions
@@ -49,27 +73,60 @@ function App() {
     }
   };
 
+  // Toggle source selection
+  const toggleSource = (sourceId) => {
+    setSelectedSources(prev => 
+      prev.includes(sourceId) 
+        ? prev.filter(id => id !== sourceId)
+        : [...prev, sourceId]
+    );
+  };
+
   // PDF Viewer Component
   const PDFViewer = ({ pdf, onClose }) => (
     <div className="fixed inset-0 bg-black bg-opacity-90 z-50 flex items-center justify-center p-4">
       <div className="bg-white dark:bg-gray-900 rounded-lg w-full max-w-6xl h-full max-h-[90vh] flex flex-col">
         <div className="flex justify-between items-center p-4 border-b border-gray-200 dark:border-gray-700">
-          <h3 className="text-lg font-semibold text-gray-900 dark:text-white truncate">
-            {pdf.title}
-          </h3>
+          <div className="flex-1 min-w-0">
+            <h3 className="text-lg font-semibold text-gray-900 dark:text-white truncate">
+              {pdf.title}
+            </h3>
+            <p className="text-sm text-gray-500 dark:text-gray-400">
+              Source: {pdf.source}
+              {pdf.authors && pdf.authors.length > 0 && ` • Authors: ${pdf.authors.join(', ')}`}
+            </p>
+          </div>
           <button
             onClick={onClose}
-            className="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 text-2xl"
+            className="ml-4 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 text-2xl"
           >
             ×
           </button>
         </div>
         <div className="flex-1 p-4">
-          <iframe
-            src={`${pdf.download_url}#toolbar=1&navpanes=1&scrollbar=1`}
-            className="w-full h-full border rounded"
-            title={pdf.title}
-          />
+          {pdf.download_url ? (
+            <iframe
+              src={`${pdf.download_url}#toolbar=1&navpanes=1&scrollbar=1`}
+              className="w-full h-full border rounded"
+              title={pdf.title}
+            />
+          ) : (
+            <div className="flex items-center justify-center h-full">
+              <div className="text-center">
+                <p className="text-gray-600 dark:text-gray-400 mb-4">
+                  Direct PDF viewing not available for this document.
+                </p>
+                <a
+                  href={pdf.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-medium transition-colors"
+                >
+                  View on {pdf.source}
+                </a>
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </div>
@@ -84,7 +141,7 @@ function App() {
             <img
               src={result.thumbnail_url}
               alt={result.title}
-              className="w-16 h-20 object-cover rounded border"
+              className="w-16 h-20 object-cover rounded border flex-shrink-0"
               onError={(e) => {e.target.style.display = 'none'}}
             />
           )}
@@ -92,38 +149,75 @@ function App() {
             <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2 line-clamp-2">
               {result.title}
             </h3>
-            <div className="flex items-center space-x-4 text-sm text-gray-500 dark:text-gray-400 mb-3">
-              <span className="bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 px-2 py-1 rounded-full">
+            
+            {/* Metadata */}
+            <div className="flex flex-wrap items-center gap-2 text-sm text-gray-500 dark:text-gray-400 mb-3">
+              <span className="bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 px-2 py-1 rounded-full font-medium">
                 {result.source}
               </span>
+              {result.authors && result.authors.length > 0 && (
+                <span>👤 {result.authors.slice(0, 2).join(', ')}</span>
+              )}
+              {result.publication_date && (
+                <span>📅 {result.publication_date}</span>
+              )}
+              {result.citation_count && (
+                <span>📊 {result.citation_count} citations</span>
+              )}
               {result.file_size && <span>📄 {result.file_size}</span>}
-              {result.language && <span>🌐 {result.language}</span>}
+              {result.language && result.language !== 'English' && (
+                <span>🌐 {result.language}</span>
+              )}
             </div>
+
+            {/* Categories */}
+            {result.categories && result.categories.length > 0 && (
+              <div className="flex flex-wrap gap-1 mb-3">
+                {result.categories.slice(0, 3).map((category, index) => (
+                  <span
+                    key={index}
+                    className="text-xs bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 px-2 py-1 rounded"
+                  >
+                    {category}
+                  </span>
+                ))}
+              </div>
+            )}
+            
+            {/* AI Summary */}
             {result.ai_summary && (
               <p className="text-gray-600 dark:text-gray-300 text-sm mb-3 line-clamp-3">
-                🤖 {result.ai_summary}
+                🤖 <span className="font-medium">AI Summary:</span> {result.ai_summary}
               </p>
             )}
+            
+            {/* Description */}
             {result.description && (
               <p className="text-gray-600 dark:text-gray-300 text-sm mb-4 line-clamp-2">
                 {result.description}
               </p>
             )}
+            
+            {/* Action Buttons */}
             <div className="flex flex-wrap gap-2">
-              <button
-                onClick={() => setSelectedPdf(result)}
-                className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors"
-              >
-                📖 Read Online
-              </button>
-              <a
-                href={result.download_url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors inline-block"
-              >
-                ⬇️ Download
-              </a>
+              {result.download_url && (
+                <button
+                  onClick={() => setSelectedPdf(result)}
+                  className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors"
+                >
+                  📖 Read Online
+                </button>
+              )}
+              {result.download_url && (
+                <a
+                  href={result.download_url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors inline-block"
+                >
+                  ⬇️ Download PDF
+                </a>
+              )}
               <a
                 href={result.url}
                 target="_blank"
@@ -135,6 +229,40 @@ function App() {
             </div>
           </div>
         </div>
+      </div>
+    </div>
+  );
+
+  // Source Filter Component
+  const SourceFilter = () => (
+    <div className="bg-white dark:bg-gray-800 rounded-lg p-4 shadow-sm mb-6">
+      <h4 className="text-sm font-semibold text-gray-900 dark:text-white mb-3">
+        🔍 Search Sources {selectedSources.length > 0 && `(${selectedSources.length} selected)`}
+      </h4>
+      <div className="flex flex-wrap gap-2">
+        <button
+          onClick={() => setSelectedSources([])}
+          className={`px-3 py-1 rounded-full text-sm font-medium transition-colors ${
+            selectedSources.length === 0
+              ? 'bg-blue-600 text-white'
+              : 'bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'
+          }`}
+        >
+          All Sources
+        </button>
+        {availableSources.map((source) => (
+          <button
+            key={source.id}
+            onClick={() => toggleSource(source.id)}
+            className={`px-3 py-1 rounded-full text-sm font-medium transition-colors ${
+              selectedSources.includes(source.id)
+                ? 'bg-blue-600 text-white'
+                : 'bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'
+            }`}
+          >
+            {source.name}
+          </button>
+        ))}
       </div>
     </div>
   );
@@ -154,7 +282,7 @@ function App() {
                   AI PDF Search
                 </h1>
                 <p className="text-sm text-gray-500 dark:text-gray-400">
-                  Intelligent PDF Discovery Platform
+                  Multi-Source Intelligent Discovery Platform
                 </p>
               </div>
             </div>
@@ -171,23 +299,24 @@ function App() {
       {/* Main Content */}
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Search Section */}
-        <div className="text-center mb-12">
+        <div className="text-center mb-8">
           <h2 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">
-            Find Any PDF with AI Intelligence
+            Find PDFs from Multiple Academic Sources
           </h2>
-          <p className="text-xl text-gray-600 dark:text-gray-400 mb-8 max-w-3xl mx-auto">
-            Search millions of academic papers, books, and documents. Our AI understands your intent and finds exactly what you need.
+          <p className="text-xl text-gray-600 dark:text-gray-400 mb-8 max-w-4xl mx-auto">
+            Search across arXiv, Semantic Scholar, Open Library, CORE, Google Books, Archive.org and more. 
+            Our AI understands your intent and finds exactly what you need.
           </p>
           
           {/* Search Bar */}
-          <div className="max-w-4xl mx-auto">
+          <div className="max-w-4xl mx-auto mb-6">
             <div className="relative">
               <input
                 type="text"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 onKeyPress={handleKeyPress}
-                placeholder="Ask for anything... 'quantum physics papers', 'machine learning textbooks', 'climate change research'..."
+                placeholder="Search for research papers, books, documents... e.g. 'machine learning transformers', 'quantum computing algorithms'"
                 className="w-full px-6 py-4 text-lg border border-gray-300 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400"
               />
               <button
@@ -209,6 +338,9 @@ function App() {
               </button>
             </div>
           </div>
+
+          {/* Source Filter */}
+          {availableSources.length > 0 && <SourceFilter />}
         </div>
 
         {/* Search Results */}
@@ -225,14 +357,27 @@ function App() {
                 {/* Search Info */}
                 <div className="mb-6 bg-white dark:bg-gray-800 rounded-lg p-6 shadow-sm">
                   <div className="flex flex-wrap items-center justify-between gap-4">
-                    <div>
+                    <div className="flex-1 min-w-0">
                       <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-1">
                         Search Results for: "{searchResults.query}"
                       </h3>
                       {searchResults.reformulated_query && searchResults.reformulated_query !== searchResults.query && (
-                        <p className="text-sm text-gray-600 dark:text-gray-400">
+                        <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">
                           🤖 AI enhanced query: "{searchResults.reformulated_query}"
                         </p>
+                      )}
+                      {searchResults.sources_used && searchResults.sources_used.length > 0 && (
+                        <div className="flex flex-wrap gap-1">
+                          <span className="text-sm text-gray-500 dark:text-gray-400">Sources:</span>
+                          {searchResults.sources_used.map((source, index) => (
+                            <span
+                              key={index}
+                              className="text-xs bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 px-2 py-1 rounded"
+                            >
+                              {source}
+                            </span>
+                          ))}
+                        </div>
                       )}
                     </div>
                     <div className="text-sm text-gray-500 dark:text-gray-400">
@@ -254,7 +399,7 @@ function App() {
                       <span className="text-6xl">📭</span>
                     </div>
                     <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
-                      No PDFs found
+                      No documents found
                     </h3>
                     <p className="text-gray-600 dark:text-gray-400">
                       Try different keywords or check the suggestions below
@@ -296,32 +441,39 @@ function App() {
               <span className="text-8xl">🔍📚</span>
             </div>
             <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
-              Start Your Intelligent Search
+              Start Your Multi-Source Search
             </h3>
-            <p className="text-gray-600 dark:text-gray-400 mb-8 max-w-2xl mx-auto">
-              Our AI understands what you're looking for and finds the most relevant PDFs from millions of documents. 
-              Try searching for topics, specific papers, or even ask questions naturally.
+            <p className="text-gray-600 dark:text-gray-400 mb-8 max-w-3xl mx-auto">
+              Our AI searches across multiple academic databases simultaneously, including arXiv, Semantic Scholar, 
+              Open Library, CORE, Google Books, and Archive.org. Find the most relevant documents from millions of sources.
             </p>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
               <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-sm">
                 <div className="text-3xl mb-4">🧠</div>
                 <h4 className="font-semibold text-gray-900 dark:text-white mb-2">AI-Powered</h4>
                 <p className="text-sm text-gray-600 dark:text-gray-400">
-                  Semantic search understands intent and context
+                  Semantic search with intelligent query enhancement
+                </p>
+              </div>
+              <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-sm">
+                <div className="text-3xl mb-4">🌐</div>
+                <h4 className="font-semibold text-gray-900 dark:text-white mb-2">Multi-Source</h4>
+                <p className="text-sm text-gray-600 dark:text-gray-400">
+                  Search across 6+ academic databases simultaneously
                 </p>
               </div>
               <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-sm">
                 <div className="text-3xl mb-4">⚡</div>
                 <h4 className="font-semibold text-gray-900 dark:text-white mb-2">Real-Time</h4>
                 <p className="text-sm text-gray-600 dark:text-gray-400">
-                  Search millions of documents instantly
+                  Parallel search across millions of documents
                 </p>
               </div>
               <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-sm">
                 <div className="text-3xl mb-4">📖</div>
                 <h4 className="font-semibold text-gray-900 dark:text-white mb-2">Built-in Reader</h4>
                 <p className="text-sm text-gray-600 dark:text-gray-400">
-                  Read PDFs directly in your browser
+                  Read PDFs directly with integrated viewer
                 </p>
               </div>
             </div>
