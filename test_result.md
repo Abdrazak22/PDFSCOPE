@@ -281,7 +281,7 @@ frontend:
     implemented: true
     working: false
     file: "/app/frontend/src/App.js"
-    stuck_count: 0
+    stuck_count: 1
     priority: "medium"
     needs_retesting: false
     status_history:
@@ -291,6 +291,9 @@ frontend:
       - working: false
         agent: "testing"
         comment: "AI Suggestions section is not visible in the UI after performing searches with various queries. The code in App.js (lines 1408-1431) shows the implementation for AI suggestions, but they are not appearing in the actual application. This could be due to the backend API not returning any suggestions or an issue with the frontend rendering."
+      - working: false
+        agent: "testing"
+        comment: "AI Suggestions are still not visible in the UI after performing searches. The code includes console logging for suggestions (line 971), but no suggestion-related logs were found in the console during testing. The suggestions UI section with 'Related Searches' heading was not found after searches. This suggests that either the backend API is not returning any suggestions data or there's an issue with the frontend rendering of suggestions. The suggestions array may be empty, causing the UI component not to render."
 
   - task: "Responsive Design"
     implemented: true
