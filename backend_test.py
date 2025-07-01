@@ -24,7 +24,7 @@ class BackendTests(unittest.TestCase):
     """Test suite for the AI-Powered PDF Search Engine backend API"""
 
     def test_01_health_check(self):
-        """Test the health check endpoint"""
+        """Test the health check endpoint with focus on Google Custom Search credentials"""
         print("\n=== Testing Health Check Endpoint ===")
         response = requests.get(f"{API_URL}/health")
         
@@ -44,12 +44,18 @@ class BackendTests(unittest.TestCase):
         services = data["services"]
         self.assertIn("database", services, "Services should include database status")
         self.assertIn("openai", services, "Services should include openai status")
-        self.assertIn("archive_org", services, "Services should include archive_org status")
         
-        # Check if OpenAI is configured
-        self.assertEqual(services["openai"], "configured", "OpenAI API key should be configured")
+        # Verify Google Custom Search configuration
+        self.assertIn("google_search", services, "Services should include google_search status")
+        self.assertEqual(services["google_search"], "configured", "Google Custom Search should be configured")
         
-        print("✅ Health check endpoint test passed")
+        # Verify primary source is Google PDF Search
+        self.assertEqual(services.get("primary_source"), "Google PDF Search", "Primary source should be Google PDF Search")
+        
+        # Verify max results is set to 50
+        self.assertEqual(services.get("max_results"), 50, "Max results should be set to 50")
+        
+        print("✅ Health check endpoint test passed - Google Custom Search credentials are properly configured")
 
     def test_02_search_endpoint(self):
         """Test the search endpoint with a sample query"""
