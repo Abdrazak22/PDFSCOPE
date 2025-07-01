@@ -344,7 +344,6 @@ test_plan:
   current_focus:
     - "Multilingual Support"
   stuck_tasks: 
-    - "Dark/Light Mode Toggle"
     - "AI Suggestions Display"
   test_all: false
   test_priority: "high_first"
