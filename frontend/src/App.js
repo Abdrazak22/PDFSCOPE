@@ -904,15 +904,15 @@ function App() {
 
   // Language persistence and RTL support
   useEffect(() => {
-    // Load saved language from localStorage
+    // Load saved language from localStorage on component mount
     const savedLanguage = localStorage.getItem('pdfscope_language');
     if (savedLanguage && SUPPORTED_LANGUAGES[savedLanguage]) {
       setCurrentLang(savedLanguage);
     }
-  }, []);
+  }, []); // Empty dependency array ensures this runs only once on mount
 
   useEffect(() => {
-    // Save language to localStorage
+    // Save language to localStorage whenever language changes
     localStorage.setItem('pdfscope_language', currentLang);
     
     // Handle RTL for Arabic
@@ -926,7 +926,7 @@ function App() {
     } else {
       document.body.classList.remove('rtl');
     }
-  }, [currentLang]);
+  }, [currentLang]); // This runs whenever currentLang changes
 
   // Language change handler
   const handleLanguageChange = (langCode) => {
