@@ -194,6 +194,24 @@ backend:
       - working: true
         agent: "testing"
         comment: "Health Check endpoint is working correctly. It returns the status of all services (database, OpenAI API, Archive.org) and confirms they are properly configured."
+      - working: true
+        agent: "testing"
+        comment: "Health Check endpoint correctly reports Google Custom Search as configured. The endpoint returns the status of all services including Google Custom Search and confirms the credentials are properly configured."
+
+  - task: "Google Custom Search Integration"
+    implemented: true
+    working: true
+    file: "/app/backend/server.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+      - working: "NA"
+        agent: "main"
+        comment: "Implemented Google Custom Search integration with API key and CSE ID. Created GooglePDFSearch class that searches for PDFs, formats results with metadata, and ranks results by relevance."
+      - working: true
+        agent: "testing"
+        comment: "Google Custom Search integration is working correctly. The API credentials (GOOGLE_API_KEY and GOOGLE_CSE_ID) are properly configured. The search endpoint successfully returns PDF results from Google with proper metadata including title, URL, domain, and publication date. Date filtering is working correctly for the 1975-2025 range. The search returned 43 results with proper Google ranking and domain information."
 
 frontend:
   - task: "AI-Powered Search Interface"
