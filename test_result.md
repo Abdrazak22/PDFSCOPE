@@ -331,17 +331,16 @@ frontend:
 metadata:
   created_by: "main_agent"
   version: "1.0"
-  test_sequence: 1
+  test_sequence: 2
   run_ui: false
 
 test_plan:
   current_focus:
+    - "Multilingual Support"
+  stuck_tasks: 
     - "Dark/Light Mode Toggle"
     - "AI Suggestions Display"
-    - "Responsive Design"
-  stuck_tasks: 
-    - "Multilingual Support"
-  test_all: true
+  test_all: false
   test_priority: "high_first"
 
 agent_communication:
@@ -359,3 +358,5 @@ agent_communication:
     message: "Completed testing of Google Custom Search integration. The Google API credentials (GOOGLE_API_KEY and GOOGLE_CSE_ID) are properly configured and working. The health check endpoint correctly reports Google Custom Search as configured. The search endpoint successfully returns PDF results from Google with proper metadata including title, URL, domain, and publication date. Date filtering is working correctly for the 1975-2025 range. The API response includes the google_results_count field showing how many results came from Google and the sources_used field showing 'Google PDF Search'. The search returned 43 results with proper Google ranking and domain information. All tests passed successfully."
   - agent: "testing"
     message: "Completed testing of multilingual functionality. The application supports 11 languages (English, Arabic, Chinese, Spanish, Hindi, Portuguese, Russian, Japanese, German, French, Korean) with proper translations for all UI elements. RTL support for Arabic is working correctly with proper text direction and layout adjustments. The search functionality works in all tested languages with properly translated interface elements. The PDF viewer also displays correctly in different languages. However, language persistence after page refresh is not working correctly - the language reverts to English after refresh despite being stored in localStorage. This issue should be fixed to ensure a better user experience."
+  - agent: "testing"
+    message: "Completed testing of the remaining frontend features. Year Range Filtering is working correctly with all four preset buttons functioning properly. Responsive Design is implemented well, with the application adapting to desktop, tablet, and mobile screen sizes. The Dark/Light Mode Toggle feature appears to be missing from the UI despite being mentioned in the implementation. The AI Suggestions Display is also not visible after performing searches with various queries, which could be due to backend API limitations or frontend rendering issues. All other features including the PDF viewer, search interface, and search results display are working correctly."
