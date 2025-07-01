@@ -452,6 +452,438 @@ const TRANSLATIONS = {
     recentFocus: "Foco Recente",
     aiPoweredLabel: "Impulsionado por IA",
     smartSearch: "Pesquisa Inteligente"
+  },
+
+  hi: {
+    // Site branding
+    siteTitle: "PDFScope",
+    tagline: "AI-संचालित PDF खोज",
+    
+    // Navigation
+    features: "विशेषताएं",
+    about: "हमारे बारे में",
+    help: "सहायता",
+    language: "भाषा",
+    
+    // Search interface
+    searchPlaceholder: "दुनिया भर में लाखों PDFs खोजें...",
+    searchButton: "खोजें",
+    searching: "खोज रहे हैं",
+    
+    // Filters
+    filterByYear: "वर्ष के अनुसार फ़िल्टर करें",
+    yearRange2020: "2020-2025",
+    yearRange2015: "2015-2025",
+    yearRange2000: "2000-2025",
+    yearRange1975: "1975-2025",
+    
+    // Results
+    results: "परिणाम",
+    foundIn: "में मिला",
+    seconds: "सेकंड",
+    noResults: "कोई PDF नहीं मिला",
+    tryDifferent: "अलग कीवर्ड आज़माएं या अपने फ़िल्टर समायोजित करें",
+    
+    // Actions
+    readPdf: "PDF पढ़ें",
+    download: "डाउनलोड",
+    viewSource: "स्रोत देखें",
+    close: "बंद करें",
+    
+    // Content
+    aiSummary: "AI सारांश",
+    relatedSearches: "संबंधित खोजें",
+    publicationDate: "प्रकाशन तिथि",
+    domain: "डोमेन",
+    fileSize: "फ़ाइल का आकार",
+    
+    // Welcome section
+    welcomeTitle: "50+ मिलियन PDFs खोजें",
+    welcomeSubtitle: "हमारे AI-संचालित खोज इंजन के साथ 1975-2025 के अनुसंधान पत्र, शैक्षणिक प्रकाशन और दस्तावेज़ खोजें। विश्व ज्ञान तक तत्काल पहुंच प्राप्त करें।",
+    
+    // Features
+    googlePoweredTitle: "Google-संचालित खोज",
+    googlePoweredDesc: "उन्नत फ़िल्टरिंग के साथ Google के व्यापक सूचकांक के माध्यम से लाखों PDFs तक पहुंचें।",
+    yearsKnowledgeTitle: "50 साल का ज्ञान",
+    yearsKnowledgeDesc: "1975 से 2025 तक के दस्तावेज़ों का अन्वेषण करें, नवीनतम प्रकाशनों को पहले प्राथमिकता दी गई है।",
+    aiEnhancedTitle: "AI-संवर्धित खोज",
+    aiEnhancedDesc: "बेहतर अनुसंधान परिणामों के लिए स्मार्ट क्वेरी अनुकूलन और स्वचालित सारांश।",
+    
+    // PDF Viewer
+    pdfViewerNotAvailable: "प्रत्यक्ष PDF देखना उपलब्ध नहीं है",
+    pdfViewerMessage: "इस दस्तावेज़ को मूल स्रोत पर देखा जाना चाहिए।",
+    viewOnSource: "इस पर देखें",
+    
+    // Error messages
+    searchFailed: "खोज असफल हुई। कृपया पुनः प्रयास करें।",
+    loadingError: "सामग्री लोड करने में विफल",
+    
+    // Stats
+    millionsLabel: "मिलियन",
+    pdfDocuments: "PDF दस्तावेज़",
+    recentFocus: "हाल की फोकस",
+    aiPoweredLabel: "AI-संचालित",
+    smartSearch: "स्मार्ट खोज"
+  },
+
+  ru: {
+    // Site branding
+    siteTitle: "PDFScope",
+    tagline: "ИИ-поиск PDF документов",
+    
+    // Navigation
+    features: "Возможности",
+    about: "О нас",
+    help: "Помощь",
+    language: "Язык",
+    
+    // Search interface
+    searchPlaceholder: "Поиск миллионов PDF по всему миру...",
+    searchButton: "Поиск",
+    searching: "Поиск",
+    
+    // Filters
+    filterByYear: "Фильтр по году",
+    yearRange2020: "2020-2025",
+    yearRange2015: "2015-2025",
+    yearRange2000: "2000-2025",
+    yearRange1975: "1975-2025",
+    
+    // Results
+    results: "результатов",
+    foundIn: "найдено за",
+    seconds: "секунд",
+    noResults: "PDF не найдены",
+    tryDifferent: "Попробуйте другие ключевые слова или настройте фильтры",
+    
+    // Actions
+    readPdf: "Читать PDF",
+    download: "Скачать",
+    viewSource: "Просмотр источника",
+    close: "Закрыть",
+    
+    // Content
+    aiSummary: "ИИ Резюме",
+    relatedSearches: "Похожие поиски",
+    publicationDate: "Дата публикации",
+    domain: "Домен",
+    fileSize: "Размер файла",
+    
+    // Welcome section
+    welcomeTitle: "Поиск 50+ миллионов PDF",
+    welcomeSubtitle: "Откройте исследовательские работы, академические публикации и документы 1975-2025 годов с помощью нашей поисковой системы на базе ИИ. Получите мгновенный доступ к мировым знаниям.",
+    
+    // Features
+    googlePoweredTitle: "Поиск на базе Google",
+    googlePoweredDesc: "Доступ к миллионам PDF через комплексный индекс Google с расширенной фильтрацией.",
+    yearsKnowledgeTitle: "50 лет знаний",
+    yearsKnowledgeDesc: "Исследуйте документы с 1975 по 2025 год, новейшие публикации в приоритете.",
+    aiEnhancedTitle: "ИИ-улучшенный поиск",
+    aiEnhancedDesc: "Умная оптимизация запросов и автоматические резюме для лучших результатов исследований.",
+    
+    // PDF Viewer
+    pdfViewerNotAvailable: "Прямой просмотр PDF недоступен",
+    pdfViewerMessage: "Этот документ нужно просматривать на исходном источнике.",
+    viewOnSource: "Посмотреть на",
+    
+    // Error messages
+    searchFailed: "Поиск не удался. Попробуйте еще раз.",
+    loadingError: "Не удалось загрузить содержимое",
+    
+    // Stats
+    millionsLabel: "Миллионов",
+    pdfDocuments: "PDF документов",
+    recentFocus: "Недавний фокус",
+    aiPoweredLabel: "На базе ИИ",
+    smartSearch: "Умный поиск"
+  },
+
+  ja: {
+    // Site branding
+    siteTitle: "PDFScope",
+    tagline: "AI駆動のPDF発見",
+    
+    // Navigation
+    features: "機能",
+    about: "について",
+    help: "ヘルプ",
+    language: "言語",
+    
+    // Search interface
+    searchPlaceholder: "世界中の数百万のPDFを検索...",
+    searchButton: "検索",
+    searching: "検索中",
+    
+    // Filters
+    filterByYear: "年で絞り込み",
+    yearRange2020: "2020-2025",
+    yearRange2015: "2015-2025",
+    yearRange2000: "2000-2025",
+    yearRange1975: "1975-2025",
+    
+    // Results
+    results: "件の結果",
+    foundIn: "で見つかりました",
+    seconds: "秒",
+    noResults: "PDFが見つかりませんでした",
+    tryDifferent: "異なるキーワードを試すか、フィルターを調整してください",
+    
+    // Actions
+    readPdf: "PDFを読む",
+    download: "ダウンロード",
+    viewSource: "ソースを表示",
+    close: "閉じる",
+    
+    // Content
+    aiSummary: "AI要約",
+    relatedSearches: "関連検索",
+    publicationDate: "発行日",
+    domain: "ドメイン",
+    fileSize: "ファイルサイズ",
+    
+    // Welcome section
+    welcomeTitle: "5000万以上のPDFを検索",
+    welcomeSubtitle: "AI駆動の検索エンジンで1975-2025年の研究論文、学術出版物、文書を発見してください。世界の知識に即座にアクセスできます。",
+    
+    // Features
+    googlePoweredTitle: "Google駆動検索",
+    googlePoweredDesc: "高度なフィルタリングでGoogleの包括的なインデックスを通じて数百万のPDFにアクセス。",
+    yearsKnowledgeTitle: "50年の知識",
+    yearsKnowledgeDesc: "1975年から2025年までの文書を探索し、最新の出版物が最初に優先されます。",
+    aiEnhancedTitle: "AI強化発見",
+    aiEnhancedDesc: "より良い研究結果のためのスマートなクエリ最適化と自動要約。",
+    
+    // PDF Viewer
+    pdfViewerNotAvailable: "直接PDF表示は利用できません",
+    pdfViewerMessage: "この文書は元のソースで表示する必要があります。",
+    viewOnSource: "で表示",
+    
+    // Error messages
+    searchFailed: "検索に失敗しました。もう一度お試しください。",
+    loadingError: "コンテンツの読み込みに失敗しました",
+    
+    // Stats
+    millionsLabel: "百万",
+    pdfDocuments: "PDF文書",
+    recentFocus: "最近の焦点",
+    aiPoweredLabel: "AI駆動",
+    smartSearch: "スマート検索"
+  },
+
+  de: {
+    // Site branding
+    siteTitle: "PDFScope",
+    tagline: "KI-gesteuerte PDF-Entdeckung",
+    
+    // Navigation
+    features: "Funktionen",
+    about: "Über uns",
+    help: "Hilfe",
+    language: "Sprache",
+    
+    // Search interface
+    searchPlaceholder: "Millionen von PDFs weltweit durchsuchen...",
+    searchButton: "Suchen",
+    searching: "Suche läuft",
+    
+    // Filters
+    filterByYear: "Nach Jahr filtern",
+    yearRange2020: "2020-2025",
+    yearRange2015: "2015-2025",
+    yearRange2000: "2000-2025",
+    yearRange1975: "1975-2025",
+    
+    // Results
+    results: "Ergebnisse",
+    foundIn: "gefunden in",
+    seconds: "Sekunden",
+    noResults: "Keine PDFs gefunden",
+    tryDifferent: "Versuchen Sie andere Schlüsselwörter oder passen Sie Ihre Filter an",
+    
+    // Actions
+    readPdf: "PDF lesen",
+    download: "Herunterladen",
+    viewSource: "Quelle anzeigen",
+    close: "Schließen",
+    
+    // Content
+    aiSummary: "KI-Zusammenfassung",
+    relatedSearches: "Verwandte Suchen",
+    publicationDate: "Veröffentlichungsdatum",
+    domain: "Domain",
+    fileSize: "Dateigröße",
+    
+    // Welcome section
+    welcomeTitle: "50+ Millionen PDFs durchsuchen",
+    welcomeSubtitle: "Entdecken Sie Forschungsarbeiten, wissenschaftliche Publikationen und Dokumente von 1975-2025 mit unserer KI-gesteuerten Suchmaschine. Erhalten Sie sofortigen Zugang zum Weltwissen.",
+    
+    // Features
+    googlePoweredTitle: "Google-gesteuerte Suche",
+    googlePoweredDesc: "Zugriff auf Millionen von PDFs über Googles umfassenden Index mit erweiteter Filterung.",
+    yearsKnowledgeTitle: "50 Jahre Wissen",
+    yearsKnowledgeDesc: "Erkunden Sie Dokumente von 1975 bis 2025, neueste Publikationen werden zuerst priorisiert.",
+    aiEnhancedTitle: "KI-verbesserte Entdeckung",
+    aiEnhancedDesc: "Intelligente Abfrageoptimierung und automatische Zusammenfassungen für bessere Forschungsergebnisse.",
+    
+    // PDF Viewer
+    pdfViewerNotAvailable: "Direkte PDF-Anzeige nicht verfügbar",
+    pdfViewerMessage: "Dieses Dokument muss an der ursprünglichen Quelle angezeigt werden.",
+    viewOnSource: "Anzeigen auf",
+    
+    // Error messages
+    searchFailed: "Suche fehlgeschlagen. Bitte versuchen Sie es erneut.",
+    loadingError: "Fehler beim Laden des Inhalts",
+    
+    // Stats
+    millionsLabel: "Millionen",
+    pdfDocuments: "PDF-Dokumente",
+    recentFocus: "Aktueller Fokus",
+    aiPoweredLabel: "KI-gesteuert",
+    smartSearch: "Intelligente Suche"
+  },
+
+  fr: {
+    // Site branding
+    siteTitle: "PDFScope",
+    tagline: "Découverte de PDF alimentée par IA",
+    
+    // Navigation
+    features: "Fonctionnalités",
+    about: "À propos",
+    help: "Aide",
+    language: "Langue",
+    
+    // Search interface
+    searchPlaceholder: "Rechercher des millions de PDFs dans le monde...",
+    searchButton: "Rechercher",
+    searching: "Recherche en cours",
+    
+    // Filters
+    filterByYear: "Filtrer par année",
+    yearRange2020: "2020-2025",
+    yearRange2015: "2015-2025",
+    yearRange2000: "2000-2025",
+    yearRange1975: "1975-2025",
+    
+    // Results
+    results: "résultats",
+    foundIn: "trouvé en",
+    seconds: "secondes",
+    noResults: "Aucun PDF trouvé",
+    tryDifferent: "Essayez d'autres mots-clés ou ajustez vos filtres",
+    
+    // Actions
+    readPdf: "Lire le PDF",
+    download: "Télécharger",
+    viewSource: "Voir la source",
+    close: "Fermer",
+    
+    // Content
+    aiSummary: "Résumé IA",
+    relatedSearches: "Recherches liées",
+    publicationDate: "Date de publication",
+    domain: "Domaine",
+    fileSize: "Taille du fichier",
+    
+    // Welcome section
+    welcomeTitle: "Rechercher 50+ millions de PDFs",
+    welcomeSubtitle: "Découvrez des articles de recherche, des publications académiques et des documents de 1975-2025 avec notre moteur de recherche alimenté par IA. Obtenez un accès instantané aux connaissances mondiales.",
+    
+    // Features
+    googlePoweredTitle: "Recherche alimentée par Google",
+    googlePoweredDesc: "Accédez à des millions de PDFs via l'index complet de Google avec filtrage avancé.",
+    yearsKnowledgeTitle: "50 ans de connaissances",
+    yearsKnowledgeDesc: "Explorez les documents de 1975 à 2025, les publications les plus récentes sont priorisées en premier.",
+    aiEnhancedTitle: "Découverte améliorée par IA",
+    aiEnhancedDesc: "Optimisation intelligente des requêtes et résumés automatiques pour de meilleurs résultats de recherche.",
+    
+    // PDF Viewer
+    pdfViewerNotAvailable: "Affichage direct du PDF non disponible",
+    pdfViewerMessage: "Ce document doit être consulté sur la source originale.",
+    viewOnSource: "Voir sur",
+    
+    // Error messages
+    searchFailed: "Recherche échouée. Veuillez réessayer.",
+    loadingError: "Échec du chargement du contenu",
+    
+    // Stats
+    millionsLabel: "Millions",
+    pdfDocuments: "Documents PDF",
+    recentFocus: "Focus récent",
+    aiPoweredLabel: "Alimenté par IA",
+    smartSearch: "Recherche intelligente"
+  },
+
+  ko: {
+    // Site branding
+    siteTitle: "PDFScope",
+    tagline: "AI 기반 PDF 발견",
+    
+    // Navigation
+    features: "기능",
+    about: "소개",
+    help: "도움말",
+    language: "언어",
+    
+    // Search interface
+    searchPlaceholder: "전 세계 수백만 개의 PDF 검색...",
+    searchButton: "검색",
+    searching: "검색 중",
+    
+    // Filters
+    filterByYear: "연도별 필터",
+    yearRange2020: "2020-2025",
+    yearRange2015: "2015-2025",
+    yearRange2000: "2000-2025",
+    yearRange1975: "1975-2025",
+    
+    // Results
+    results: "결과",
+    foundIn: "에서 발견",
+    seconds: "초",
+    noResults: "PDF를 찾을 수 없습니다",
+    tryDifferent: "다른 키워드를 시도하거나 필터를 조정하세요",
+    
+    // Actions
+    readPdf: "PDF 읽기",
+    download: "다운로드",
+    viewSource: "소스 보기",
+    close: "닫기",
+    
+    // Content
+    aiSummary: "AI 요약",
+    relatedSearches: "관련 검색",
+    publicationDate: "발행일",
+    domain: "도메인",
+    fileSize: "파일 크기",
+    
+    // Welcome section
+    welcomeTitle: "5천만 이상의 PDF 검색",
+    welcomeSubtitle: "AI 기반 검색 엔진으로 1975-2025년의 연구 논문, 학술 출판물 및 문서를 발견하세요. 세계 지식에 즉시 액세스하세요.",
+    
+    // Features
+    googlePoweredTitle: "Google 기반 검색",
+    googlePoweredDesc: "고급 필터링으로 Google의 포괄적인 인덱스를 통해 수백만 개의 PDF에 액세스하세요.",
+    yearsKnowledgeTitle: "50년의 지식",
+    yearsKnowledgeDesc: "1975년부터 2025년까지의 문서를 탐색하고, 최신 출판물이 먼저 우선됩니다.",
+    aiEnhancedTitle: "AI 향상된 발견",
+    aiEnhancedDesc: "더 나은 연구 결과를 위한 스마트 쿼리 최적화 및 자동 요약.",
+    
+    // PDF Viewer
+    pdfViewerNotAvailable: "직접 PDF 보기를 사용할 수 없습니다",
+    pdfViewerMessage: "이 문서는 원본 소스에서 봐야 합니다.",
+    viewOnSource: "에서 보기",
+    
+    // Error messages
+    searchFailed: "검색 실패. 다시 시도해 주세요.",
+    loadingError: "콘텐츠 로드 실패",
+    
+    // Stats
+    millionsLabel: "백만",
+    pdfDocuments: "PDF 문서",
+    recentFocus: "최근 초점",
+    aiPoweredLabel: "AI 기반",
+    smartSearch: "스마트 검색"
   }
   // Add other languages with complete translations...
 };
