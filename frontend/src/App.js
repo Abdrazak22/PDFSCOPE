@@ -968,6 +968,7 @@ function App() {
       
       // Fetch suggestions
       const suggestionsResponse = await axios.get(`${API}/suggestions?q=${encodeURIComponent(query)}`);
+      console.log('Suggestions response:', suggestionsResponse.data);
       setSuggestions(suggestionsResponse.data.suggestions || []);
       
     } catch (error) {
