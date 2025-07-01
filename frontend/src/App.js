@@ -1263,10 +1263,14 @@ function App() {
                   </svg>
                 </div>
                 <div>
-                  <h1 className="text-3xl font-black text-gray-800">
+                  <h1 className={`text-3xl font-black transition-colors ${
+                    darkMode ? 'text-white' : 'text-gray-800'
+                  }`}>
                     {t.siteTitle}
                   </h1>
-                  <p className="text-sm text-gray-600 font-semibold">
+                  <p className={`text-sm font-semibold transition-colors ${
+                    darkMode ? 'text-gray-300' : 'text-gray-600'
+                  }`}>
                     {t.tagline}
                   </p>
                 </div>
