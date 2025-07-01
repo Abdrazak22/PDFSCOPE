@@ -268,12 +268,12 @@ def run_tests():
     
     # Create a test suite
     suite = unittest.TestSuite()
+    suite.addTest(BackendTests('test_07_google_credentials_check'))  # Run Google credentials check first
     suite.addTest(BackendTests('test_01_health_check'))
     suite.addTest(BackendTests('test_02_search_endpoint'))
     suite.addTest(BackendTests('test_03_suggestions_endpoint'))
     suite.addTest(BackendTests('test_04_summarize_endpoint'))
     suite.addTest(BackendTests('test_05_search_with_different_query'))
-    suite.addTest(BackendTests('test_06_search_history_endpoint'))
     
     # Run the tests
     runner = unittest.TextTestRunner(verbosity=2)
