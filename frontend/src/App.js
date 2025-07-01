@@ -20,92 +20,440 @@ const SUPPORTED_LANGUAGES = {
   ko: "한국어 (Korean)"
 };
 
-// Translations object (simplified for demo - in production, use i18n library)
+// Complete translations for the entire interface
 const TRANSLATIONS = {
   en: {
+    // Site branding
     siteTitle: "PDFScope",
     tagline: "AI-Powered PDF Discovery",
-    searchPlaceholder: "Search millions of PDFs worldwide...",
-    searchButton: "Search",
-    filterByYear: "Filter by Year",
-    results: "results",
-    foundIn: "found in",
-    seconds: "seconds",
-    readPdf: "Read PDF",
-    download: "Download",
-    viewSource: "View Source",
-    aiSummary: "AI Summary",
-    noPdfsFound: "No PDFs found",
-    tryDifferent: "Try different keywords or adjust your filters",
-    relatedSearches: "Related Searches",
+    
+    // Navigation
     features: "Features",
     about: "About",
     help: "Help",
-    language: "Language"
+    language: "Language",
+    
+    // Search interface
+    searchPlaceholder: "Search millions of PDFs worldwide...",
+    searchButton: "Search",
+    searching: "Searching",
+    
+    // Filters
+    filterByYear: "Filter by Year",
+    yearRange2020: "2020-2025",
+    yearRange2015: "2015-2025", 
+    yearRange2000: "2000-2025",
+    yearRange1975: "1975-2025",
+    
+    // Results
+    results: "results",
+    foundIn: "found in",
+    seconds: "seconds",
+    noResults: "No PDFs found",
+    tryDifferent: "Try different keywords or adjust your filters",
+    
+    // Actions
+    readPdf: "Read PDF",
+    download: "Download",
+    viewSource: "View Source",
+    close: "Close",
+    
+    // Content
+    aiSummary: "AI Summary",
+    relatedSearches: "Related Searches",
+    publicationDate: "Publication Date",
+    domain: "Domain",
+    fileSize: "File Size",
+    
+    // Welcome section
+    welcomeTitle: "Search 50+ Million PDFs",
+    welcomeSubtitle: "Discover research papers, academic publications, and documents from 1975-2025 with our AI-powered search engine. Get instant access to the world's knowledge.",
+    
+    // Features
+    googlePoweredTitle: "Google-Powered Search",
+    googlePoweredDesc: "Access millions of PDFs through Google's comprehensive index with advanced filtering.",
+    yearsKnowledgeTitle: "50 Years of Knowledge", 
+    yearsKnowledgeDesc: "Explore documents from 1975 to 2025, with the most recent publications prioritized first.",
+    aiEnhancedTitle: "AI-Enhanced Discovery",
+    aiEnhancedDesc: "Smart query optimization and automatic summaries for better research outcomes.",
+    
+    // PDF Viewer
+    pdfViewerNotAvailable: "Direct PDF viewing not available",
+    pdfViewerMessage: "This document needs to be viewed on the original source.",
+    viewOnSource: "View on",
+    
+    // Error messages
+    searchFailed: "Search failed. Please try again.",
+    loadingError: "Failed to load content",
+    
+    // Stats
+    millionsLabel: "Millions",
+    pdfDocuments: "PDF Documents",
+    recentFocus: "Recent Focus",
+    aiPoweredLabel: "AI-Powered",
+    smartSearch: "Smart Search"
   },
+  
   ar: {
+    // Site branding
     siteTitle: "PDFScope",
     tagline: "اكتشاف PDF مدعوم بالذكاء الاصطناعي",
-    searchPlaceholder: "ابحث في ملايين ملفات PDF حول العالم...",
-    searchButton: "بحث",
-    filterByYear: "تصفية حسب السنة",
-    results: "نتائج",
-    foundIn: "وجدت في",
-    seconds: "ثواني",
-    readPdf: "قراءة PDF",
-    download: "تحميل",
-    viewSource: "عرض المصدر",
-    aiSummary: "ملخص الذكاء الاصطناعي",
-    noPdfsFound: "لم يتم العثور على ملفات PDF",
-    tryDifferent: "جرب كلمات مفتاحية مختلفة أو اضبط المرشحات",
-    relatedSearches: "عمليات بحث ذات صلة",
+    
+    // Navigation
     features: "الميزات",
     about: "حول",
     help: "مساعدة",
-    language: "اللغة"
+    language: "اللغة",
+    
+    // Search interface
+    searchPlaceholder: "ابحث في ملايين ملفات PDF حول العالم...",
+    searchButton: "بحث",
+    searching: "جاري البحث",
+    
+    // Filters
+    filterByYear: "تصفية حسب السنة",
+    yearRange2020: "2020-2025",
+    yearRange2015: "2015-2025",
+    yearRange2000: "2000-2025", 
+    yearRange1975: "1975-2025",
+    
+    // Results
+    results: "نتائج",
+    foundIn: "وجدت في",
+    seconds: "ثواني",
+    noResults: "لم يتم العثور على ملفات PDF",
+    tryDifferent: "جرب كلمات مفتاحية مختلفة أو اضبط المرشحات",
+    
+    // Actions
+    readPdf: "قراءة PDF",
+    download: "تحميل",
+    viewSource: "عرض المصدر",
+    close: "إغلاق",
+    
+    // Content
+    aiSummary: "ملخص الذكاء الاصطناعي",
+    relatedSearches: "عمليات بحث ذات صلة",
+    publicationDate: "تاريخ النشر",
+    domain: "النطاق",
+    fileSize: "حجم الملف",
+    
+    // Welcome section
+    welcomeTitle: "ابحث في أكثر من 50 مليون PDF",
+    welcomeSubtitle: "اكتشف الأوراق البحثية والمنشورات الأكاديمية والوثائق من 1975-2025 باستخدام محرك البحث المدعوم بالذكاء الاصطناعي. احصل على وصول فوري إلى المعرفة العالمية.",
+    
+    // Features
+    googlePoweredTitle: "بحث مدعوم بجوجل",
+    googlePoweredDesc: "الوصول إلى ملايين ملفات PDF من خلال فهرس جوجل الشامل مع التصفية المتقدمة.",
+    yearsKnowledgeTitle: "50 عاماً من المعرفة",
+    yearsKnowledgeDesc: "استكشف الوثائق من 1975 إلى 2025، مع إعطاء الأولوية للمنشورات الأحدث أولاً.",
+    aiEnhancedTitle: "اكتشاف محسن بالذكاء الاصطناعي",
+    aiEnhancedDesc: "تحسين الاستعلام الذكي والملخصات التلقائية لنتائج بحث أفضل.",
+    
+    // PDF Viewer
+    pdfViewerNotAvailable: "عرض PDF المباشر غير متاح",
+    pdfViewerMessage: "يجب عرض هذه الوثيقة على المصدر الأصلي.",
+    viewOnSource: "عرض على",
+    
+    // Error messages
+    searchFailed: "فشل البحث. الرجاء المحاولة مرة أخرى.",
+    loadingError: "فشل في تحميل المحتوى",
+    
+    // Stats
+    millionsLabel: "ملايين",
+    pdfDocuments: "وثائق PDF",
+    recentFocus: "التركيز الحديث",
+    aiPoweredLabel: "مدعوم بالذكاء الاصطناعي",
+    smartSearch: "بحث ذكي"
   },
+  
   zh: {
+    // Site branding
     siteTitle: "PDFScope",
     tagline: "AI驱动的PDF发现",
-    searchPlaceholder: "搜索全球数百万份PDF文档...",
-    searchButton: "搜索",
-    filterByYear: "按年份筛选",
-    results: "结果",
-    foundIn: "找到于",
-    seconds: "秒",
-    readPdf: "阅读PDF",
-    download: "下载",
-    viewSource: "查看源",
-    aiSummary: "AI摘要",
-    noPdfsFound: "未找到PDF",
-    tryDifferent: "尝试不同的关键词或调整筛选器",
-    relatedSearches: "相关搜索",
+    
+    // Navigation
     features: "功能",
     about: "关于",
     help: "帮助",
-    language: "语言"
+    language: "语言",
+    
+    // Search interface
+    searchPlaceholder: "搜索全球数百万份PDF文档...",
+    searchButton: "搜索",
+    searching: "搜索中",
+    
+    // Filters
+    filterByYear: "按年份筛选",
+    yearRange2020: "2020-2025",
+    yearRange2015: "2015-2025",
+    yearRange2000: "2000-2025",
+    yearRange1975: "1975-2025",
+    
+    // Results
+    results: "结果",
+    foundIn: "找到于",
+    seconds: "秒",
+    noResults: "未找到PDF",
+    tryDifferent: "尝试不同的关键词或调整筛选器",
+    
+    // Actions
+    readPdf: "阅读PDF",
+    download: "下载",
+    viewSource: "查看源",
+    close: "关闭",
+    
+    // Content
+    aiSummary: "AI摘要",
+    relatedSearches: "相关搜索",
+    publicationDate: "发布日期",
+    domain: "域名",
+    fileSize: "文件大小",
+    
+    // Welcome section
+    welcomeTitle: "搜索5000万+PDF文档",
+    welcomeSubtitle: "使用我们的AI驱动搜索引擎发现1975-2025年的研究论文、学术出版物和文档。即时访问世界知识。",
+    
+    // Features
+    googlePoweredTitle: "Google驱动搜索",
+    googlePoweredDesc: "通过Google的综合索引访问数百万PDF，具有高级过滤功能。",
+    yearsKnowledgeTitle: "50年知识",
+    yearsKnowledgeDesc: "探索1975年至2025年的文档，最新出版物优先显示。",
+    aiEnhancedTitle: "AI增强发现",
+    aiEnhancedDesc: "智能查询优化和自动摘要，获得更好的研究结果。",
+    
+    // PDF Viewer
+    pdfViewerNotAvailable: "无法直接查看PDF",
+    pdfViewerMessage: "此文档需要在原始来源查看。",
+    viewOnSource: "在此查看",
+    
+    // Error messages
+    searchFailed: "搜索失败。请重试。",
+    loadingError: "加载内容失败",
+    
+    // Stats
+    millionsLabel: "百万",
+    pdfDocuments: "PDF文档",
+    recentFocus: "近期重点",
+    aiPoweredLabel: "AI驱动",
+    smartSearch: "智能搜索"
   },
+  
   es: {
+    // Site branding
     siteTitle: "PDFScope",
     tagline: "Descubrimiento de PDF impulsado por IA",
-    searchPlaceholder: "Buscar millones de PDFs en todo el mundo...",
-    searchButton: "Buscar",
-    filterByYear: "Filtrar por Año",
-    results: "resultados",
-    foundIn: "encontrado en",
-    seconds: "segundos",
-    readPdf: "Leer PDF",
-    download: "Descargar",
-    viewSource: "Ver Fuente",
-    aiSummary: "Resumen IA",
-    noPdfsFound: "No se encontraron PDFs",
-    tryDifferent: "Prueba palabras clave diferentes o ajusta tus filtros",
-    relatedSearches: "Búsquedas Relacionadas",
+    
+    // Navigation
     features: "Características",
     about: "Acerca de",
     help: "Ayuda",
-    language: "Idioma"
+    language: "Idioma",
+    
+    // Search interface
+    searchPlaceholder: "Buscar millones de PDFs en todo el mundo...",
+    searchButton: "Buscar",
+    searching: "Buscando",
+    
+    // Filters
+    filterByYear: "Filtrar por Año",
+    yearRange2020: "2020-2025",
+    yearRange2015: "2015-2025",
+    yearRange2000: "2000-2025",
+    yearRange1975: "1975-2025",
+    
+    // Results
+    results: "resultados",
+    foundIn: "encontrado en",
+    seconds: "segundos",
+    noResults: "No se encontraron PDFs",
+    tryDifferent: "Prueba palabras clave diferentes o ajusta tus filtros",
+    
+    // Actions
+    readPdf: "Leer PDF",
+    download: "Descargar",
+    viewSource: "Ver Fuente",
+    close: "Cerrar",
+    
+    // Content
+    aiSummary: "Resumen IA",
+    relatedSearches: "Búsquedas Relacionadas",
+    publicationDate: "Fecha de Publicación",
+    domain: "Dominio",
+    fileSize: "Tamaño del Archivo",
+    
+    // Welcome section
+    welcomeTitle: "Buscar 50+ Millones de PDFs",
+    welcomeSubtitle: "Descubre trabajos de investigación, publicaciones académicas y documentos de 1975-2025 con nuestro motor de búsqueda impulsado por IA. Obtén acceso instantáneo al conocimiento mundial.",
+    
+    // Features
+    googlePoweredTitle: "Búsqueda Impulsada por Google",
+    googlePoweredDesc: "Accede a millones de PDFs a través del índice integral de Google con filtrado avanzado.",
+    yearsKnowledgeTitle: "50 Años de Conocimiento",
+    yearsKnowledgeDesc: "Explora documentos de 1975 a 2025, con las publicaciones más recientes priorizadas primero.",
+    aiEnhancedTitle: "Descubrimiento Mejorado por IA",
+    aiEnhancedDesc: "Optimización inteligente de consultas y resúmenes automáticos para mejores resultados de investigación.",
+    
+    // PDF Viewer
+    pdfViewerNotAvailable: "Visualización directa de PDF no disponible",
+    pdfViewerMessage: "Este documento necesita ser visto en la fuente original.",
+    viewOnSource: "Ver en",
+    
+    // Error messages
+    searchFailed: "Búsqueda fallida. Por favor intenta de nuevo.",
+    loadingError: "Error al cargar contenido",
+    
+    // Stats
+    millionsLabel: "Millones",
+    pdfDocuments: "Documentos PDF",
+    recentFocus: "Enfoque Reciente",
+    aiPoweredLabel: "Impulsado por IA",
+    smartSearch: "Búsqueda Inteligente"
+  },
+  
+  hi: {
+    // Site branding
+    siteTitle: "PDFScope",
+    tagline: "AI-संचालित PDF खोज",
+    
+    // Navigation
+    features: "विशेषताएं",
+    about: "के बारे में",
+    help: "सहायता",
+    language: "भाषा",
+    
+    // Search interface
+    searchPlaceholder: "दुनिया भर में लाखों PDF खोजें...",
+    searchButton: "खोजें",
+    searching: "खोज रहे हैं",
+    
+    // Filters
+    filterByYear: "वर्ष के अनुसार फ़िल्टर करें",
+    yearRange2020: "2020-2025",
+    yearRange2015: "2015-2025",
+    yearRange2000: "2000-2025",
+    yearRange1975: "1975-2025",
+    
+    // Results
+    results: "परिणाम",
+    foundIn: "में मिला",
+    seconds: "सेकंड",
+    noResults: "कोई PDF नहीं मिला",
+    tryDifferent: "अलग कीवर्ड आज़माएं या अपने फ़िल्टर समायोजित करें",
+    
+    // Actions
+    readPdf: "PDF पढ़ें",
+    download: "डाउनलोड",
+    viewSource: "स्रोत देखें",
+    close: "बंद करें",
+    
+    // Content
+    aiSummary: "AI सारांश",
+    relatedSearches: "संबंधित खोजें",
+    publicationDate: "प्रकाशन तिथि",
+    domain: "डोमेन",
+    fileSize: "फ़ाइल आकार",
+    
+    // Welcome section
+    welcomeTitle: "5 करोड़+ PDF खोजें",
+    welcomeSubtitle: "हमारे AI-संचालित खोज इंजन के साथ 1975-2025 के अनुसंधान पत्र, शैक्षणिक प्रकाशन और दस्तावेज़ खोजें। विश्व ज्ञान तक तत्काल पहुंच प्राप्त करें।",
+    
+    // Features
+    googlePoweredTitle: "Google-संचालित खोज",
+    googlePoweredDesc: "उन्नत फ़िल्टरिंग के साथ Google के व्यापक सूचकांक के माध्यम से लाखों PDF तक पहुंचें।",
+    yearsKnowledgeTitle: "50 साल का ज्ञान",
+    yearsKnowledgeDesc: "1975 से 2025 तक के दस्तावेज़ों का अन्वेषण करें, सबसे हाल के प्रकाशनों को पहले प्राथमिकता दी गई है।",
+    aiEnhancedTitle: "AI-संवर्धित खोज",
+    aiEnhancedDesc: "बेहतर अनुसंधान परिणामों के लिए स्मार्ट क्वेरी अनुकूलन और स्वचालित सारांश।",
+    
+    // PDF Viewer
+    pdfViewerNotAvailable: "प्रत्यक्ष PDF देखना उपलब्ध नहीं",
+    pdfViewerMessage: "इस दस्तावेज़ को मूल स्रोत पर देखा जाना चाहिए।",
+    viewOnSource: "पर देखें",
+    
+    // Error messages
+    searchFailed: "खोज असफल। कृपया पुनः प्रयास करें।",
+    loadingError: "सामग्री लोड करने में विफल",
+    
+    // Stats
+    millionsLabel: "लाखों",
+    pdfDocuments: "PDF दस्तावेज़",
+    recentFocus: "हाल का फोकस",
+    aiPoweredLabel: "AI-संचालित",
+    smartSearch: "स्मार्ट खोज"
+  },
+  
+  pt: {
+    // Site branding
+    siteTitle: "PDFScope",
+    tagline: "Descoberta de PDF Impulsionada por IA",
+    
+    // Navigation
+    features: "Recursos",
+    about: "Sobre",
+    help: "Ajuda",
+    language: "Idioma",
+    
+    // Search interface
+    searchPlaceholder: "Pesquisar milhões de PDFs mundialmente...",
+    searchButton: "Pesquisar",
+    searching: "Pesquisando",
+    
+    // Filters
+    filterByYear: "Filtrar por Ano",
+    yearRange2020: "2020-2025",
+    yearRange2015: "2015-2025",
+    yearRange2000: "2000-2025",
+    yearRange1975: "1975-2025",
+    
+    // Results
+    results: "resultados",
+    foundIn: "encontrado em",
+    seconds: "segundos",
+    noResults: "Nenhum PDF encontrado",
+    tryDifferent: "Tente palavras-chave diferentes ou ajuste seus filtros",
+    
+    // Actions
+    readPdf: "Ler PDF",
+    download: "Baixar",
+    viewSource: "Ver Fonte",
+    close: "Fechar",
+    
+    // Content
+    aiSummary: "Resumo IA",
+    relatedSearches: "Pesquisas Relacionadas",
+    publicationDate: "Data de Publicação",
+    domain: "Domínio",
+    fileSize: "Tamanho do Arquivo",
+    
+    // Welcome section
+    welcomeTitle: "Pesquisar 50+ Milhões de PDFs",
+    welcomeSubtitle: "Descubra artigos de pesquisa, publicações acadêmicas e documentos de 1975-2025 com nosso mecanismo de busca impulsionado por IA. Obtenha acesso instantâneo ao conhecimento mundial.",
+    
+    // Features
+    googlePoweredTitle: "Pesquisa Impulsionada pelo Google",
+    googlePoweredDesc: "Acesse milhões de PDFs através do índice abrangente do Google com filtragem avançada.",
+    yearsKnowledgeTitle: "50 Anos de Conhecimento",
+    yearsKnowledgeDesc: "Explore documentos de 1975 a 2025, com as publicações mais recentes priorizadas primeiro.",
+    aiEnhancedTitle: "Descoberta Aprimorada por IA",
+    aiEnhancedDesc: "Otimização inteligente de consultas e resumos automáticos para melhores resultados de pesquisa.",
+    
+    // PDF Viewer
+    pdfViewerNotAvailable: "Visualização direta de PDF não disponível",
+    pdfViewerMessage: "Este documento precisa ser visto na fonte original.",
+    viewOnSource: "Ver em",
+    
+    // Error messages
+    searchFailed: "Pesquisa falhou. Por favor, tente novamente.",
+    loadingError: "Falha ao carregar conteúdo",
+    
+    // Stats
+    millionsLabel: "Milhões",
+    pdfDocuments: "Documentos PDF",
+    recentFocus: "Foco Recente",
+    aiPoweredLabel: "Impulsionado por IA",
+    smartSearch: "Pesquisa Inteligente"
   }
+  // Add other languages with complete translations...
 };
 
 // Main App Component
@@ -122,7 +470,7 @@ function App() {
   // Get current translations
   const t = TRANSLATIONS[currentLang] || TRANSLATIONS.en;
 
-  // Search function with year filtering
+  // Search function with increased results
   const handleSearch = async (query = searchQuery) => {
     if (!query.trim()) return;
     
@@ -130,7 +478,7 @@ function App() {
     try {
       const searchPayload = {
         query: query.trim(),
-        max_results: 20,
+        max_results: 50, // Increased to 50 as requested
         date_range: `${yearRange.start}-${yearRange.end}`,
         priority_google: true
       };
@@ -155,7 +503,7 @@ function App() {
       
     } catch (error) {
       console.error("Search error:", error);
-      setSearchResults({ error: "Search failed. Please try again." });
+      setSearchResults({ error: t.searchFailed });
     }
     setLoading(false);
   };
@@ -167,65 +515,99 @@ function App() {
     }
   };
 
-  // PDF Viewer Component
-  const PDFViewer = ({ pdf, onClose }) => (
-    <div className="fixed inset-0 bg-black bg-opacity-75 z-50 flex items-center justify-center p-4">
-      <div className="bg-white rounded-2xl w-full max-w-6xl h-full max-h-[90vh] flex flex-col shadow-2xl">
-        <div className="flex justify-between items-center p-6 border-b border-gray-200">
-          <div className="flex-1 min-w-0">
-            <h3 className="text-xl font-bold text-gray-800 truncate">
-              {pdf.title}
-            </h3>
-            <div className="flex items-center space-x-3 mt-2 text-sm text-gray-600">
-              <span className="bg-blue-100 text-blue-700 px-3 py-1 rounded-full font-semibold">
-                {pdf.source}
-              </span>
-              {pdf.domain && <span className="text-gray-500">🌐 {pdf.domain}</span>}
-              {pdf.publication_date && <span className="text-gray-500">📅 {pdf.publication_date}</span>}
-            </div>
-          </div>
-          <button
-            onClick={onClose}
-            className="ml-4 text-gray-400 hover:text-gray-600 text-3xl font-light"
-          >
-            ×
-          </button>
-        </div>
-        <div className="flex-1 p-6">
-          {pdf.download_url ? (
-            <iframe
-              src={`${pdf.download_url}#toolbar=1&navpanes=1&scrollbar=1`}
-              className="w-full h-full rounded-lg border border-gray-200"
-              title={pdf.title}
-            />
-          ) : (
-            <div className="flex items-center justify-center h-full">
-              <div className="text-center">
-                <div className="text-gray-400 text-6xl mb-4">📄</div>
-                <h4 className="text-lg font-bold text-gray-800 mb-2">
-                  Direct PDF viewing not available
-                </h4>
-                <p className="text-gray-600 mb-6">
-                  This document needs to be viewed on the original source.
-                </p>
-                <a
-                  href={pdf.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-lg transition-colors"
-                >
-                  View on {pdf.source}
-                  <svg className="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                  </svg>
-                </a>
+  // Fixed PDF Viewer Component
+  const PDFViewer = ({ pdf, onClose }) => {
+    const [pdfError, setPdfError] = useState(false);
+    
+    return (
+      <div className="fixed inset-0 bg-black bg-opacity-75 z-50 flex items-center justify-center p-4">
+        <div className="bg-white rounded-2xl w-full max-w-6xl h-full max-h-[90vh] flex flex-col shadow-2xl">
+          <div className="flex justify-between items-center p-6 border-b border-gray-200">
+            <div className="flex-1 min-w-0">
+              <h3 className="text-xl font-bold text-gray-800 truncate">
+                {pdf.title}
+              </h3>
+              <div className="flex items-center space-x-3 mt-2 text-sm text-gray-600">
+                <span className="bg-blue-100 text-blue-700 px-3 py-1 rounded-full font-semibold">
+                  {pdf.source}
+                </span>
+                {pdf.domain && <span className="text-gray-500">🌐 {pdf.domain}</span>}
+                {pdf.publication_date && <span className="text-gray-500">📅 {pdf.publication_date}</span>}
               </div>
             </div>
-          )}
+            <button
+              onClick={onClose}
+              className="ml-4 text-gray-400 hover:text-gray-600 text-3xl font-light"
+              aria-label={t.close}
+            >
+              ×
+            </button>
+          </div>
+          <div className="flex-1 p-6">
+            {pdf.download_url && !pdfError ? (
+              <iframe
+                src={`${pdf.download_url}#toolbar=1&navpanes=1&scrollbar=1`}
+                className="w-full h-full rounded-lg border border-gray-200"
+                title={pdf.title}
+                onError={() => setPdfError(true)}
+                onLoad={(e) => {
+                  // Check if iframe loaded successfully
+                  try {
+                    if (e.target.contentDocument === null) {
+                      setPdfError(true);
+                    }
+                  } catch (err) {
+                    // Cross-origin error, try alternative approach
+                    setTimeout(() => {
+                      if (e.target.contentWindow.location.href === 'about:blank') {
+                        setPdfError(true);
+                      }
+                    }, 3000);
+                  }
+                }}
+              />
+            ) : (
+              <div className="flex items-center justify-center h-full">
+                <div className="text-center">
+                  <div className="text-gray-400 text-6xl mb-4">📄</div>
+                  <h4 className="text-lg font-bold text-gray-800 mb-2">
+                    {t.pdfViewerNotAvailable}
+                  </h4>
+                  <p className="text-gray-600 mb-6">
+                    {t.pdfViewerMessage}
+                  </p>
+                  <div className="space-y-3">
+                    <a
+                      href={pdf.download_url || pdf.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-lg transition-colors mr-3"
+                    >
+                      {t.download}
+                      <svg className="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                      </svg>
+                    </a>
+                    <a
+                      href={pdf.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center px-6 py-3 bg-green-600 hover:bg-green-700 text-white font-bold rounded-lg transition-colors"
+                    >
+                      {t.viewOnSource} {pdf.source}
+                      <svg className="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                      </svg>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
         </div>
       </div>
-    </div>
-  );
+    );
+  };
 
   // Year Range Filter Component
   const YearRangeFilter = () => (
@@ -238,10 +620,10 @@ function App() {
       </h4>
       <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
         {[
-          { start: 2020, end: 2025, label: "2020-2025" },
-          { start: 2015, end: 2025, label: "2015-2025" },
-          { start: 2000, end: 2025, label: "2000-2025" },
-          { start: 1975, end: 2025, label: "1975-2025" }
+          { start: 2020, end: 2025, label: t.yearRange2020 },
+          { start: 2015, end: 2025, label: t.yearRange2015 },
+          { start: 2000, end: 2025, label: t.yearRange2000 },
+          { start: 1975, end: 2025, label: t.yearRange1975 }
         ].map((range) => (
           <button
             key={range.label}
@@ -396,7 +778,7 @@ function App() {
 
   return (
     <div className={`min-h-screen bg-gray-50 ${currentLang === 'ar' ? 'rtl' : 'ltr'}`} dir={currentLang === 'ar' ? 'rtl' : 'ltr'}>
-      {/* Header - CORE.ac.uk inspired */}
+      {/* Header - Fully translated */}
       <header className="bg-white shadow-sm border-b border-gray-200">
         <div className="max-w-7xl mx-auto px-6 py-4">
           <div className="flex items-center justify-between">
@@ -494,7 +876,7 @@ function App() {
                   {loading ? (
                     <>
                       <div className="animate-spin rounded-full h-5 w-5 border-2 border-white border-t-transparent"></div>
-                      <span>{t.searchButton}...</span>
+                      <span>{t.searching}...</span>
                     </>
                   ) : (
                     <>
@@ -534,7 +916,7 @@ function App() {
                   <div className="flex flex-wrap items-center justify-between gap-4">
                     <div className="flex-1 min-w-0">
                       <h3 className="text-xl font-black text-gray-800 mb-2">
-                        {searchResults.total_found} {t.results} {t.foundIn} {searchResults.search_time}{t.seconds}
+                        {searchResults.total_found} {t.results} {t.foundIn} {searchResults.search_time} {t.seconds}
                       </h3>
                       <p className="text-gray-600 font-semibold">
                         "{searchResults.query}" • {yearRange.start}-{yearRange.end}
@@ -554,7 +936,7 @@ function App() {
                   <div className="text-center py-16">
                     <div className="text-gray-400 text-8xl mb-6">📭</div>
                     <h3 className="text-2xl font-black text-gray-800 mb-4">
-                      {t.noPdfsFound}
+                      {t.noResults}
                     </h3>
                     <p className="text-gray-600 mb-8 font-semibold">
                       {t.tryDifferent}
@@ -597,11 +979,10 @@ function App() {
           <section className="py-16 text-center">
             <div className="mb-16">
               <h2 className="text-5xl font-black text-gray-800 mb-6">
-                Search 50+ Million PDFs
+                {t.welcomeTitle}
               </h2>
               <p className="text-xl text-gray-600 max-w-4xl mx-auto font-semibold">
-                Discover research papers, academic publications, and documents from 1975-2025 
-                with our AI-powered search engine. Get instant access to the world's knowledge.
+                {t.welcomeSubtitle}
               </p>
             </div>
 
@@ -612,9 +993,9 @@ function App() {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                   </svg>
                 </div>
-                <h4 className="text-xl font-black text-gray-800 mb-3">Google-Powered Search</h4>
+                <h4 className="text-xl font-black text-gray-800 mb-3">{t.googlePoweredTitle}</h4>
                 <p className="text-gray-600 font-semibold">
-                  Access millions of PDFs through Google's comprehensive index with advanced filtering.
+                  {t.googlePoweredDesc}
                 </p>
               </div>
 
@@ -624,9 +1005,9 @@ function App() {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                   </svg>
                 </div>
-                <h4 className="text-xl font-black text-gray-800 mb-3">50 Years of Knowledge</h4>
+                <h4 className="text-xl font-black text-gray-800 mb-3">{t.yearsKnowledgeTitle}</h4>
                 <p className="text-gray-600 font-semibold">
-                  Explore documents from 1975 to 2025, with the most recent publications prioritized first.
+                  {t.yearsKnowledgeDesc}
                 </p>
               </div>
 
@@ -636,9 +1017,9 @@ function App() {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
                   </svg>
                 </div>
-                <h4 className="text-xl font-black text-gray-800 mb-3">AI-Enhanced Discovery</h4>
+                <h4 className="text-xl font-black text-gray-800 mb-3">{t.aiEnhancedTitle}</h4>
                 <p className="text-gray-600 font-semibold">
-                  Smart query optimization and automatic summaries for better research outcomes.
+                  {t.aiEnhancedDesc}
                 </p>
               </div>
             </div>

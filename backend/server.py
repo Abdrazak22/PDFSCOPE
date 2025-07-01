@@ -31,8 +31,8 @@ db = client[os.environ['DB_NAME']]
 
 # Create the main app without a prefix
 app = FastAPI(
-    title="AI-Powered Google PDF Search Engine",
-    description="Intelligent PDF discovery focusing on Google's massive index (2000-2025)",
+    title="PDFScope - AI-Powered PDF Search Engine",
+    description="Intelligent PDF discovery focusing on Google's massive index (1975-2025)",
     version="3.0.0"
 )
 
@@ -42,7 +42,7 @@ api_router = APIRouter(prefix="/api")
 # Define Models
 class SearchRequest(BaseModel):
     query: str
-    max_results: Optional[int] = 20
+    max_results: Optional[int] = 50  # Increased to 50 as requested
     sources: Optional[List[str]] = None
     date_range: Optional[str] = "2015-2025"  # Focus on recent PDFs with expanded range
     priority_google: Optional[bool] = True  # Prioritize Google results
@@ -94,7 +94,7 @@ class AISearchEngine:
         return LlmChat(
             api_key=self.openai_key,
             session_id=f"search_session_{uuid.uuid4()}",
-            system_message="You are an intelligent PDF search assistant specializing in finding recent academic papers, research documents, and technical reports from 2000-2025. Help users discover the most relevant and up-to-date documents."
+            system_message="You are an intelligent PDF search assistant specializing in finding recent academic papers, research documents, and technical reports from 1975-2025. Help users discover the most relevant and up-to-date documents."
         ).with_model("openai", "gpt-4o").with_max_tokens(2048)
     
     async def reformulate_query_for_google(self, original_query: str) -> str:
@@ -105,14 +105,14 @@ class AISearchEngine:
                 text=f"""
                 Original query: "{original_query}"
                 
-                Reformulate this query to be highly effective for Google PDF search, focusing on finding recent academic papers, research reports, and technical documents from 2000-2025.
+                Reformulate this query to be highly effective for Google PDF search, focusing on finding recent academic papers, research reports, and technical documents from 1975-2025.
                 
                 Guidelines:
                 - Add relevant academic and technical terms
                 - Include synonyms that might appear in recent papers
                 - Consider variations that would be in recent publications
                 - Make it specific enough to find quality PDFs
-                - Focus on terms that would appear in documents from the last 25 years
+                - Focus on terms that would appear in documents from the last 50 years
                 
                 Return only the optimized query, nothing else.
                 """
@@ -131,7 +131,7 @@ class AISearchEngine:
                 text=f"""
                 Based on this search query: "{query}"
                 
-                Generate 3 related search suggestions that would help find recent academic papers, research reports, and technical documents (2000-2025).
+                Generate 3 related search suggestions that would help find recent academic papers, research reports, and technical documents (1975-2025).
                 Focus on:
                 - Related research topics that have emerged recently
                 - Technological advances and developments
@@ -161,7 +161,7 @@ class AISearchEngine:
                 
                 Based on the title, description, and source, provide a brief 2-3 sentence summary of what this PDF likely contains.
                 Focus on the main research topic, potential methodology, and value for researchers or professionals.
-                Consider that this is a recent document (2000-2025) in your summary.
+                Consider that this is a document from 1975-2025 in your summary.
                 """
             )
             response = await chat.send_message(message)
@@ -184,8 +184,8 @@ class GooglePDFSearch:
         if not self.api_key or not self.cse_id:
             logger.warning("Google API credentials not found. Google search will be disabled.")
     
-    async def search_pdfs(self, query: str, max_results: int = 20, date_range: str = "2000-2025") -> List[PDFResult]:
-        """Search Google for recent PDFs using Custom Search API"""
+    async def search_pdfs(self, query: str, max_results: int = 50, date_range: str = "2015-2025") -> List[PDFResult]:
+        """Search Google for recent PDFs using Custom Search API with up to 50 results"""
         if not self.api_key or not self.cse_id:
             logger.warning("Google API not configured")
             return []
@@ -204,7 +204,8 @@ class GooglePDFSearch:
             all_results = []
             
             # Search in batches (Google API returns max 10 per request)
-            searches_needed = min((max_results + 9) // 10, 3)  # Max 3 API calls
+            # To get 50 results, we need 5 API calls
+            searches_needed = min((max_results + 9) // 10, 5)  # Max 5 API calls for 50 results
             
             for start_index in range(0, searches_needed * 10, 10):
                 params = {
@@ -252,7 +253,7 @@ class GooglePDFSearch:
             return []
     
     def _parse_date_range(self, date_range: str) -> tuple:
-        """Parse date range string like '2000-2025'"""
+        """Parse date range string like '1975-2025'"""
         try:
             if '-' in date_range:
                 start, end = date_range.split('-')
@@ -275,10 +276,10 @@ class GooglePDFSearch:
         """Try to estimate publication year from content"""
         text = f"{title} {snippet} {url}".lower()
         
-        # Look for year patterns (2000-2025)
+        # Look for year patterns (1975-2025)
         year_patterns = [
             r'\b(20[0-2][0-9])\b',  # 2000-2029
-            r'\b(19[89][0-9])\b'    # 1980-1999 (some might be relevant)
+            r'\b(19[7-9][0-9])\b'    # 1970-1999
         ]
         
         years = []
@@ -286,7 +287,7 @@ class GooglePDFSearch:
             matches = re.findall(pattern, text)
             for match in matches:
                 year = int(match)
-                if 1990 <= year <= 2025:
+                if 1975 <= year <= 2025:
                     years.append(year)
         
         if years:
@@ -359,7 +360,7 @@ class GooglePDFSearch:
         if any(domain.endswith(ad) for ad in academic_domains):
             score += 0.3
         
-        # Recency bonus (prefer 2015-2025)
+        # Recency bonus (prefer 2015-2025, but also value historical documents)
         if pub_year:
             if pub_year >= 2020:
                 score += 0.4
@@ -367,8 +368,10 @@ class GooglePDFSearch:
                 score += 0.3
             elif pub_year >= 2010:
                 score += 0.2
-            elif pub_year >= 2005:
+            elif pub_year >= 2000:
                 score += 0.1
+            elif pub_year >= 1990:
+                score += 0.05  # Some value for older historical documents
         
         # Google rank penalty (lower rank = higher penalty)
         rank_penalty = min(rank * 0.02, 0.5)
@@ -458,11 +461,11 @@ class MultiSourceSearchManager:
             'semantic_scholar': SemanticScholarSearch(),
         }
     
-    async def search_prioritizing_google(self, query: str, max_results: int = 20, date_range: str = "2000-2025") -> tuple[List[PDFResult], int]:
+    async def search_prioritizing_google(self, query: str, max_results: int = 50, date_range: str = "2015-2025") -> tuple[List[PDFResult], int]:
         """Search with Google as primary source, others as supplementary"""
         
-        # Allocate results: 70% Google, 30% others
-        google_results_target = int(max_results * 0.7)
+        # Allocate results: 80% Google, 20% others for better Google focus
+        google_results_target = int(max_results * 0.8)
         other_results_target = max_results - google_results_target
         
         # Search Google first (primary source)
@@ -635,14 +638,15 @@ search_manager = MultiSourceSearchManager()
 @api_router.get("/")
 async def root():
     return {
-        "message": "AI-Powered Google PDF Search Engine", 
+        "message": "PDFScope - AI-Powered Google PDF Search Engine", 
         "version": "3.0.0",
-        "focus": "Recent PDFs (2000-2025) from Google's massive index"
+        "focus": "Recent PDFs (1975-2025) from Google's massive index",
+        "max_results": 50
     }
 
 @api_router.post("/search", response_model=SearchResponse)
 async def search_pdfs(request: SearchRequest):
-    """Enhanced search endpoint prioritizing Google's PDF index"""
+    """Enhanced search endpoint prioritizing Google's PDF index with up to 50 results"""
     start_time = asyncio.get_event_loop().time()
     
     try:
@@ -651,15 +655,15 @@ async def search_pdfs(request: SearchRequest):
         logger.info(f"Original query: {request.query}")
         logger.info(f"Google-optimized query: {reformulated_query}")
         
-        # Search with Google priority
+        # Search with Google priority (up to 50 results)
         search_results, google_count = await search_manager.search_prioritizing_google(
             reformulated_query, 
             request.max_results,
-            request.date_range or "2000-2025"
+            request.date_range or "2015-2025"
         )
         
-        # Generate AI summaries for top results
-        for result in search_results[:5]:
+        # Generate AI summaries for top results (limit to avoid rate limits)
+        for result in search_results[:8]:  # Limit AI summaries to top 8 results
             try:
                 result.ai_summary = await ai_engine.summarize_pdf_content(
                     result.title, 
@@ -715,9 +719,10 @@ async def get_available_sources():
         {
             "id": "google",
             "name": "Google PDF Search",
-            "description": "Google's massive PDF index focusing on recent documents (2000-2025)",
+            "description": "Google's massive PDF index focusing on documents from 1975-2025",
             "primary": True,
-            "coverage": "Millions of PDFs across all domains"
+            "coverage": "Millions of PDFs across all domains",
+            "max_results": 50
         },
         {
             "id": "arxiv",
@@ -756,7 +761,7 @@ async def summarize_pdf(request: SummarizeRequest):
             Generate a detailed summary for this PDF document: {request.pdf_url}
             
             Since I cannot directly access the PDF content, please provide a summary 
-            based on the URL and context, focusing on recent research and developments.
+            based on the URL and context, focusing on research and developments from 1975-2025.
             Keep it under {request.max_length} characters.
             """
         )
@@ -789,8 +794,9 @@ async def health_check():
             "database": "connected",
             "openai": "configured" if ai_engine.openai_key else "missing_key",
             "google_search": google_status,
-            "focus": "Recent PDFs (2000-2025)",
-            "primary_source": "Google PDF Search"
+            "focus": "Recent PDFs (1975-2025)",
+            "primary_source": "Google PDF Search",
+            "max_results": 50
         },
         "version": "3.0.0"
     }
