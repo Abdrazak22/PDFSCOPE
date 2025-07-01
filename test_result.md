@@ -260,10 +260,10 @@ frontend:
         comment: "PDF viewer is working correctly. The modal opens when clicking 'Read PDF' and displays the PDF content. The close button works properly."
 
   - task: "Dark/Light Mode Toggle"
-    implemented: false
-    working: false
+    implemented: true
+    working: true
     file: "/app/frontend/src/App.js"
-    stuck_count: 1
+    stuck_count: 0
     priority: "medium"
     needs_retesting: false
     status_history:
@@ -273,6 +273,9 @@ frontend:
       - working: false
         agent: "testing"
         comment: "Dark/Light mode toggle is not visible in the UI. Despite being mentioned in the implementation, there is no button or control to toggle between dark and light modes. This feature appears to be missing from the actual implementation."
+      - working: true
+        agent: "testing"
+        comment: "Dark/Light mode toggle is now fully implemented and working correctly. The toggle button is visible in the header next to the language selector. In light mode, it displays a moon icon, and in dark mode, it displays a sun icon. When toggled, the application's theme changes appropriately - background colors shift from light to dark, text colors invert, and component backgrounds adapt to the dark theme. The header background changes from white to a dark gray color. The toggle functionality works reliably, and the application maintains full functionality in dark mode, including language switching. The dark mode styling is applied consistently across the interface."
 
   - task: "AI Suggestions Display"
     implemented: true
