@@ -1285,10 +1285,7 @@ function App() {
                     {Object.entries(SUPPORTED_LANGUAGES).map(([code, name]) => (
                       <button
                         key={code}
-                        onClick={() => {
-                          setCurrentLang(code);
-                          setShowLanguageMenu(false);
-                        }}
+                        onClick={() => handleLanguageChange(code)}
                         className={`w-full text-left px-4 py-2 text-sm hover:bg-gray-50 transition-colors ${
                           currentLang === code ? 'bg-blue-50 text-blue-700 font-semibold' : 'text-gray-700'
                         } ${code === Object.keys(SUPPORTED_LANGUAGES)[0] ? 'rounded-t-lg' : ''} ${
