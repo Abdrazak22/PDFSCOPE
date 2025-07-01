@@ -934,6 +934,11 @@ function App() {
     setShowLanguageMenu(false);
   };
 
+  // Dark mode toggle handler
+  const toggleDarkMode = () => {
+    setDarkMode(!darkMode);
+  };
+
   // Search function with increased results
   const handleSearch = async (query = searchQuery) => {
     if (!query.trim()) return;
