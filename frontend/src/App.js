@@ -905,6 +905,7 @@ function App() {
   const [selectedPdf, setSelectedPdf] = useState(null);
   const [yearRange, setYearRange] = useState({ start: 2015, end: 2025 });
   const [showLanguageMenu, setShowLanguageMenu] = useState(false);
+  const [darkMode, setDarkMode] = useState(false);
 
   // Get current translations
   const t = TRANSLATIONS[currentLang] || TRANSLATIONS.en;
