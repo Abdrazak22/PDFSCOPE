@@ -261,7 +261,7 @@ class GooglePDFSearch:
                 year = int(date_range.strip())
                 return year, 2025
         except:
-            return 2000, 2025
+            return 1975, 2025
     
     def _extract_domain(self, url: str) -> str:
         """Extract domain from URL"""
