@@ -44,7 +44,7 @@ class SearchRequest(BaseModel):
     query: str
     max_results: Optional[int] = 20
     sources: Optional[List[str]] = None
-    date_range: Optional[str] = "2000-2025"  # Focus on recent PDFs
+    date_range: Optional[str] = "2015-2025"  # Focus on recent PDFs with expanded range
     priority_google: Optional[bool] = True  # Prioritize Google results
 
 class PDFResult(BaseModel):
