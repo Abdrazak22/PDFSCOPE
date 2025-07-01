@@ -902,6 +902,38 @@ function App() {
   // Get current translations
   const t = TRANSLATIONS[currentLang] || TRANSLATIONS.en;
 
+  // Language persistence and RTL support
+  useEffect(() => {
+    // Load saved language from localStorage
+    const savedLanguage = localStorage.getItem('pdfscope_language');
+    if (savedLanguage && SUPPORTED_LANGUAGES[savedLanguage]) {
+      setCurrentLang(savedLanguage);
+    }
+  }, []);
+
+  useEffect(() => {
+    // Save language to localStorage
+    localStorage.setItem('pdfscope_language', currentLang);
+    
+    // Handle RTL for Arabic
+    const isRTL = currentLang === 'ar';
+    document.documentElement.dir = isRTL ? 'rtl' : 'ltr';
+    document.documentElement.lang = currentLang;
+    
+    // Add RTL class to body for additional styling if needed
+    if (isRTL) {
+      document.body.classList.add('rtl');
+    } else {
+      document.body.classList.remove('rtl');
+    }
+  }, [currentLang]);
+
+  // Language change handler
+  const handleLanguageChange = (langCode) => {
+    setCurrentLang(langCode);
+    setShowLanguageMenu(false);
+  };
+
   // Search function with increased results
   const handleSearch = async (query = searchQuery) => {
     if (!query.trim()) return;
