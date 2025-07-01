@@ -890,7 +890,14 @@ const TRANSLATIONS = {
 
 // Main App Component
 function App() {
-  const [currentLang, setCurrentLang] = useState('en');
+  // Initialize currentLang from localStorage or default to 'en'
+  const [currentLang, setCurrentLang] = useState(() => {
+    if (typeof window !== 'undefined') {
+      const savedLanguage = localStorage.getItem('pdfscope_language');
+      return (savedLanguage && SUPPORTED_LANGUAGES[savedLanguage]) ? savedLanguage : 'en';
+    }
+    return 'en';
+  });
   const [searchQuery, setSearchQuery] = useState("");
   const [searchResults, setSearchResults] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -902,15 +909,7 @@ function App() {
   // Get current translations
   const t = TRANSLATIONS[currentLang] || TRANSLATIONS.en;
 
-  // Language persistence and RTL support
-  useEffect(() => {
-    // Load saved language from localStorage on component mount
-    const savedLanguage = localStorage.getItem('pdfscope_language');
-    if (savedLanguage && SUPPORTED_LANGUAGES[savedLanguage]) {
-      setCurrentLang(savedLanguage);
-    }
-  }, []); // Empty dependency array ensures this runs only once on mount
-
+  // Language persistence and RTL support - simplified to one useEffect
   useEffect(() => {
     // Save language to localStorage whenever language changes
     localStorage.setItem('pdfscope_language', currentLang);
