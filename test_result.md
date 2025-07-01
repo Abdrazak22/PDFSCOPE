@@ -305,7 +305,7 @@ frontend:
     status_history:
       - working: true
         agent: "testing"
-        comment: "Multilingual support is implemented with 11 languages (English, Arabic, Chinese, Spanish, Hindi, Portuguese, Russian, Japanese, German, French, Korean). The language dropdown works correctly and all UI elements are properly translated in the tested languages. RTL support for Arabic is working correctly with proper text direction and layout adjustments. However, language persistence after page refresh is not working correctly - the language reverts to English after refresh despite being stored in localStorage."
+        comment: "Multilingual support is implemented with 11 languages (English, Arabic, Chinese, Spanish, Hindi, Portuguese, Russian, Japanese, German, French, Korean). The language dropdown works correctly and all UI elements are properly translated in the tested languages. RTL support for Arabic is working correctly with proper text direction and layout adjustments. Chinese language support is also working correctly with proper translation of all UI elements. However, language persistence after page refresh is not working correctly - the language reverts to English after refresh despite being stored in localStorage."
 
 metadata:
   created_by: "main_agent"
