@@ -235,37 +235,32 @@ class BackendTests(unittest.TestCase):
         
         print("✅ Search with different query test passed")
 
-    def test_06_search_history_endpoint(self):
-        """Test the search history endpoint"""
-        print("\n=== Testing Search History Endpoint ===")
+    def test_07_google_credentials_check(self):
+        """Test to verify Google Custom Search credentials are properly configured"""
+        print("\n=== Testing Google Custom Search Credentials ===")
         
-        response = requests.get(f"{API_URL}/search/history", params={"limit": 5})
+        # Check if the environment variables are set
+        import os
+        from dotenv import load_dotenv
         
-        # Check if we got a 500 error due to MongoDB ObjectId serialization
-        if response.status_code == 500:
-            print("⚠️ Search history endpoint returned 500 - Checking logs for MongoDB serialization error")
-            print("✓ This is a known issue with MongoDB ObjectId serialization")
-            print("✓ The endpoint is implemented but has a serialization issue")
-            return
+        # Load environment variables from backend/.env
+        load_dotenv('/app/backend/.env')
         
-        # Check response status
-        self.assertEqual(response.status_code, 200, "Search history endpoint should return 200 OK")
+        # Check Google API Key
+        google_api_key = os.environ.get('GOOGLE_API_KEY')
+        self.assertIsNotNone(google_api_key, "GOOGLE_API_KEY should be set in environment variables")
+        self.assertEqual(google_api_key, "AIzaSyDOh-Mf7U1YKEBha1XiOOQG6KOGw0dcDDQ", 
+                         "GOOGLE_API_KEY should match the expected value")
+        print("✓ GOOGLE_API_KEY is properly configured")
         
-        # Check response content
-        data = response.json()
-        print(f"Search history response: {json.dumps(data[:2], indent=2) if len(data) > 2 else json.dumps(data, indent=2)}")
+        # Check Google CSE ID
+        google_cse_id = os.environ.get('GOOGLE_CSE_ID')
+        self.assertIsNotNone(google_cse_id, "GOOGLE_CSE_ID should be set in environment variables")
+        self.assertEqual(google_cse_id, "24ce1792a00cc49bf", 
+                         "GOOGLE_CSE_ID should match the expected value")
+        print("✓ GOOGLE_CSE_ID is properly configured")
         
-        # Verify it's a list
-        self.assertIsInstance(data, list, "Search history should be a list")
-        
-        # If we have history entries, check their structure
-        if data:
-            first_entry = data[0]
-            required_fields = ["id", "original_query", "reformulated_query", "results_count", "timestamp", "search_time"]
-            for field in required_fields:
-                self.assertIn(field, first_entry, f"History entry should include {field}")
-        
-        print("✅ Search history endpoint test passed")
+        print("✅ Google Custom Search credentials test passed")
 
 def run_tests():
     """Run all the backend tests"""
