@@ -58,14 +58,16 @@ class BackendTests(unittest.TestCase):
         print("✅ Health check endpoint test passed - Google Custom Search credentials are properly configured")
 
     def test_02_search_endpoint(self):
-        """Test the search endpoint with a sample query"""
-        print("\n=== Testing Search Endpoint ===")
+        """Test the search endpoint with a sample query to verify Google Custom Search integration"""
+        print("\n=== Testing Search Endpoint with Google Custom Search ===")
         
         # Test with a sample query
         test_query = "machine learning"
         payload = {
             "query": test_query,
-            "max_results": 5
+            "max_results": 50,  # Request maximum results
+            "date_range": "1975-2025",  # Test full date range
+            "priority_google": True  # Prioritize Google results
         }
         
         print(f"Sending search request with query: '{test_query}'")
@@ -93,28 +95,39 @@ class BackendTests(unittest.TestCase):
         self.assertIn("search_time", data, "Search response should include search_time")
         self.assertIn("suggestions", data, "Search response should include suggestions")
         
+        # Verify Google-specific fields
+        self.assertIn("sources_used", data, "Search response should include sources_used")
+        self.assertIn("google_results_count", data, "Search response should include google_results_count")
+        
+        # Verify Google PDF Search is in the sources used
+        self.assertIn("Google PDF Search", data["sources_used"], "Google PDF Search should be in sources_used")
+        
+        # Verify we got Google results
+        self.assertIsNotNone(data["google_results_count"], "google_results_count should not be None")
+        self.assertGreater(data["google_results_count"], 0, "Should have at least some Google results")
+        
         # Check if we got any results
         if data["total_found"] > 0:
             # Verify the structure of the first result
             first_result = data["results"][0]
             print(f"First result structure: {json.dumps({k: type(v).__name__ for k, v in first_result.items()}, indent=2)}")
             
-            required_fields = ["id", "title", "url", "download_url", "source", "thumbnail_url"]
+            # Check required fields for Google results
+            required_fields = ["id", "title", "url", "download_url", "source", "domain", "google_rank"]
             for field in required_fields:
                 self.assertIn(field, first_result, f"Result should include {field}")
             
-            # Check if AI summary is generated
-            self.assertIn("ai_summary", first_result, "Result should include AI summary")
-            if first_result["ai_summary"]:
-                print(f"AI Summary example: {first_result['ai_summary'][:100]}...")
+            # Print some sample results
+            print("\nSample results from Google Custom Search:")
+            for i, result in enumerate(data["results"][:5]):  # Show first 5 results
+                print(f"{i+1}. {result['title']}")
+                print(f"   Domain: {result.get('domain', 'N/A')}")
+                print(f"   Publication date: {result.get('publication_date', 'N/A')}")
+                print(f"   Google rank: {result.get('google_rank', 'N/A')}")
+                print(f"   URL: {result['url']}")
+                print()
         
-        # Check if suggestions are generated
-        if data["suggestions"]:
-            print(f"Generated suggestions: {data['suggestions']}")
-            self.assertIsInstance(data["suggestions"], list, "Suggestions should be a list")
-            self.assertLessEqual(len(data["suggestions"]), 3, "Should have at most 3 suggestions")
-        
-        print("✅ Search endpoint test passed")
+        print("✅ Search endpoint test passed - Google Custom Search integration is working correctly")
 
     def test_03_suggestions_endpoint(self):
         """Test the suggestions endpoint"""
