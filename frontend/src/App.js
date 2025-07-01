@@ -1328,8 +1328,10 @@ function App() {
                       <button
                         key={code}
                         onClick={() => handleLanguageChange(code)}
-                        className={`w-full text-left px-4 py-2 text-sm hover:bg-gray-50 transition-colors ${
-                          currentLang === code ? 'bg-blue-50 text-blue-700 font-semibold' : 'text-gray-700'
+                        className={`w-full text-left px-4 py-2 text-sm transition-colors ${
+                          currentLang === code 
+                            ? (darkMode ? 'bg-blue-800 text-blue-300 font-semibold' : 'bg-blue-50 text-blue-700 font-semibold')
+                            : (darkMode ? 'text-gray-300 hover:bg-gray-700' : 'text-gray-700 hover:bg-gray-50')
                         } ${code === Object.keys(SUPPORTED_LANGUAGES)[0] ? 'rounded-t-lg' : ''} ${
                           code === Object.keys(SUPPORTED_LANGUAGES)[Object.keys(SUPPORTED_LANGUAGES).length - 1] ? 'rounded-b-lg' : ''
                         }`}
