@@ -260,40 +260,49 @@ frontend:
         comment: "PDF viewer is working correctly. The modal opens when clicking 'Read PDF' and displays the PDF content. The close button works properly."
 
   - task: "Dark/Light Mode Toggle"
-    implemented: true
-    working: "NA"
+    implemented: false
+    working: false
     file: "/app/frontend/src/App.js"
-    stuck_count: 0
+    stuck_count: 1
     priority: "medium"
-    needs_retesting: true
+    needs_retesting: false
     status_history:
       - working: "NA"
         agent: "main"
         comment: "Implemented dark/light mode toggle with Tailwind CSS classes and state management."
+      - working: false
+        agent: "testing"
+        comment: "Dark/Light mode toggle is not visible in the UI. Despite being mentioned in the implementation, there is no button or control to toggle between dark and light modes. This feature appears to be missing from the actual implementation."
 
   - task: "AI Suggestions Display"
     implemented: true
-    working: "NA"
+    working: false
     file: "/app/frontend/src/App.js"
     stuck_count: 0
     priority: "medium"
-    needs_retesting: true
+    needs_retesting: false
     status_history:
       - working: "NA"
         agent: "main"
         comment: "Created suggestion chips that display AI-generated search suggestions and allow users to click to search."
+      - working: false
+        agent: "testing"
+        comment: "AI Suggestions section is not visible in the UI after performing searches with various queries. The code in App.js (lines 1408-1431) shows the implementation for AI suggestions, but they are not appearing in the actual application. This could be due to the backend API not returning any suggestions or an issue with the frontend rendering."
 
   - task: "Responsive Design"
     implemented: true
-    working: "NA"
+    working: true
     file: "/app/frontend/src/App.css"
     stuck_count: 0
     priority: "medium"
-    needs_retesting: true
+    needs_retesting: false
     status_history:
       - working: "NA"
         agent: "main"
         comment: "Implemented fully responsive design with Tailwind CSS, mobile optimizations, and modern styling."
+      - working: true
+        agent: "testing"
+        comment: "Responsive design is working correctly. The application adapts well to different screen sizes including desktop (1920x1080), tablet (768x1024), and mobile (390x844). The search interface, year filters, and search results all display properly on all tested screen sizes. The application is fully functional on mobile devices."
         
   - task: "Multilingual Support"
     implemented: true
@@ -306,6 +315,18 @@ frontend:
       - working: true
         agent: "testing"
         comment: "Multilingual support is implemented with 11 languages (English, Arabic, Chinese, Spanish, Hindi, Portuguese, Russian, Japanese, German, French, Korean). The language dropdown works correctly and all UI elements are properly translated in the tested languages. RTL support for Arabic is working correctly with proper text direction and layout adjustments. Chinese language support is also working correctly with proper translation of all UI elements. However, language persistence after page refresh is not working correctly - the language reverts to English after refresh despite being stored in localStorage."
+        
+  - task: "Year Range Filtering"
+    implemented: true
+    working: true
+    file: "/app/frontend/src/App.js"
+    stuck_count: 0
+    priority: "medium"
+    needs_retesting: false
+    status_history:
+      - working: true
+        agent: "testing"
+        comment: "Year range filtering is working correctly. All four preset year range buttons (2020-2025, 2015-2025, 2000-2025, 1975-2025) are functional and properly filter the search results. The active year range is visually highlighted with blue styling. The selected year range is maintained when performing new searches."
 
 metadata:
   created_by: "main_agent"
