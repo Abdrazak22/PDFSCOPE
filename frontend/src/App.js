@@ -1344,9 +1344,21 @@ function App() {
               </div>
               
               <div className="hidden md:flex space-x-6 text-sm">
-                <a href="#" className="text-gray-600 hover:text-blue-600 font-bold transition-colors">{t.features}</a>
-                <a href="#" className="text-gray-600 hover:text-blue-600 font-bold transition-colors">{t.about}</a>
-                <a href="#" className="text-gray-600 hover:text-blue-600 font-bold transition-colors">{t.help}</a>
+                <a href="#" className={`font-bold transition-colors ${
+                  darkMode 
+                    ? 'text-gray-300 hover:text-blue-400' 
+                    : 'text-gray-600 hover:text-blue-600'
+                }`}>{t.features}</a>
+                <a href="#" className={`font-bold transition-colors ${
+                  darkMode 
+                    ? 'text-gray-300 hover:text-blue-400' 
+                    : 'text-gray-600 hover:text-blue-600'
+                }`}>{t.about}</a>
+                <a href="#" className={`font-bold transition-colors ${
+                  darkMode 
+                    ? 'text-gray-300 hover:text-blue-400' 
+                    : 'text-gray-600 hover:text-blue-600'
+                }`}>{t.help}</a>
               </div>
             </div>
           </div>
