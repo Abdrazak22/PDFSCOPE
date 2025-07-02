@@ -1269,7 +1269,7 @@ function App() {
                   }`}>
                     {t.siteTitle}
                   </h1>
-                  <p className={`text-base font-semibold transition-colors ${
+                  <p className={`text-base font-semibold transition-colors text-center ${
                     darkMode ? 'text-gray-300' : 'text-gray-600'
                   }`}>
                     {t.tagline}
